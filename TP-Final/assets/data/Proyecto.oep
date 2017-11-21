@@ -16,7 +16,7 @@
     <Width>640</Width>
     <Height>480</Height>
   </LevelMaximumSize>
-  <Filename>C:\Users\822\Desktop\TP-Final\TP-Final\assets\data\Proyecto.oep</Filename>
+  <Filename>C:\Users\Nicolas\Desktop\TP-Final\TP-Final\assets\data\Proyecto.oep</Filename>
   <AngleMode>Radians</AngleMode>
   <CameraEnabled>false</CameraEnabled>
   <CameraSize>
@@ -53,7 +53,7 @@
   <Tilesets>
     <Tileset>
       <Name>Tilemap</Name>
-      <FilePath>..\..\..\..\..\Downloads\Tile.png</FilePath>
+      <FilePath>..\images\Tile.png</FilePath>
       <TileSize>
         <Width>16</Width>
         <Height>16</Height>
