@@ -515,7 +515,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "7",
+			build: "16",
 			company: "Nicolas Piccitto",
 			file: "TP-Final",
 			fps: 60,

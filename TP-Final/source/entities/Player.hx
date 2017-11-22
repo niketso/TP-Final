@@ -28,7 +28,7 @@ class Player extends FlxSprite
 	public function new(?X:Float = 0, ?Y:Float = 0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 		super(X, Y, SimpleGraphic);
-		makeGraphic(5, 5, 0xffffffff);
+		makeGraphic(16, 16, 0xffffffff);
 		currentState = States.IDLE;
 		lives = 1;
 		
@@ -103,7 +103,7 @@ class Player extends FlxSprite
 
 	private function jump():Void
 	{
-		if (FlxG.keys.justPressed.UP && isTouching(FlxObject.FLOOR))
+		if (FlxG.keys.justPressed.UP /*&& isTouching(FlxObject.FLOOR)*/)
 		{
 			velocity.y = -400;
 
@@ -132,13 +132,7 @@ class Player extends FlxSprite
 			
 		
 		}
-		if (!FlxFlicker.isFlickering(this))
-		{
-			lives -= damage;
-			if (lives >= 0)
-				FlxFlicker.flicker(this, 3, 0.08, true, true);
-
-		}
+		
 	}
 
 	public function die():Void

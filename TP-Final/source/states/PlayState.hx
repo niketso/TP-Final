@@ -7,7 +7,7 @@ import entities.Player;
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
-import flixel.tile.FlxTilemap;
+import flixel.tile.FlxTilemap;                      
 
 class PlayState extends FlxState
 {
@@ -39,7 +39,7 @@ class PlayState extends FlxState
 				player = new Player();
 
 				player.x = x;
-				player.y = y-100;
+				player.y = y;
 				add(player);
 
 		}
