@@ -24,7 +24,7 @@ class Enemy2 extends Enemy
 	}
 	public function movement():Void
 	{
-		//velocity.x = -30;
+		
 		var v = y + 50;
 		FlxTween.tween(this, { y: v }, 1, {type:FlxTween.PINGPONG, ease: FlxEase.sineInOut});
 	}

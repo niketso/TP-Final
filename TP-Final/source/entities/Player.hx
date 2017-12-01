@@ -36,11 +36,14 @@ class Player extends FlxSprite
 		
 		loadGraphic(AssetPaths.Personaje__png, true, 49, 42);
 		animation.add("idle", [0]);
-		animation.add("jump", [1]);
-		animation.add("attack",[2,3],4, false);
+		//animation.add("jump", [1], 12);
+		animation.add("run", [0, 1], 12, true);
+		animation.add("attack",[2,3],6, false);
 		currentState = States.IDLE;
 		acceleration.y = 1500;
 		lives = 10;
+		width -= 15;
+		centerOffsets;
 		bullets = new FlxTypedGroup<Shot>();
 		
 		
@@ -69,7 +72,7 @@ class Player extends FlxSprite
 
 			case States.RUN:
 				attack();
-				
+				animation.play("run");
 				horizontalMovement();
 				jump();
 				
@@ -80,7 +83,7 @@ class Player extends FlxSprite
 
 			case States.JUMP:
 				attack();
-				animation.play("jump");
+				//animation.play("jump");
 
 				if (velocity.y == 0)
 				{
@@ -117,7 +120,7 @@ class Player extends FlxSprite
 
 	private function jump():Void
 	{
-		if (FlxG.keys.justPressed.Z )
+		if (FlxG.keys.justPressed.Z && isTouching(FlxObject.FLOOR))
 		{
 			velocity.y = -400;
 
