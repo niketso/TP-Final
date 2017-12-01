@@ -24,6 +24,7 @@ class Enemy1 extends Enemy
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
+		loadGraphic(AssetPaths.Enemigo__png, false, 38, 48);
 		_brain = new FSM(idle);
 		_idleTmr = 0;
 		playerPos = FlxPoint.get();

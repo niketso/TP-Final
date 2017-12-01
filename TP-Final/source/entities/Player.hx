@@ -33,10 +33,14 @@ class Player extends FlxSprite
 	public function new(?X:Float = 0, ?Y:Float = 0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 		super(X, Y, SimpleGraphic);
-		makeGraphic(10, 10, 0xffffffff);
+		
+		loadGraphic(AssetPaths.Personaje__png, true, 49, 42);
+		animation.add("idle", [0]);
+		animation.add("jump", [1]);
+		animation.add("attack",[2,3],4, false);
 		currentState = States.IDLE;
 		acceleration.y = 1500;
-		lives = 1;
+		lives = 10;
 		bullets = new FlxTypedGroup<Shot>();
 		
 		
@@ -57,7 +61,7 @@ class Player extends FlxSprite
 				attack();
 				horizontalMovement();
 				jump();
-				//animation.play("idle");
+				animation.play("idle");
 				if (velocity.y != 0)
 					currentState = States.JUMP;
 				else if (velocity.x != 0)
@@ -65,9 +69,10 @@ class Player extends FlxSprite
 
 			case States.RUN:
 				attack();
+				
 				horizontalMovement();
 				jump();
-				//animation.play("run");
+				
 				if (velocity.y != 0)
 					currentState = States.JUMP;
 				else if (velocity.x == 0)
@@ -75,7 +80,7 @@ class Player extends FlxSprite
 
 			case States.JUMP:
 				attack();
-				//animation.play("jump");
+				animation.play("jump");
 
 				if (velocity.y == 0)
 				{
@@ -86,9 +91,10 @@ class Player extends FlxSprite
 				}
 
 			case States.ATTACK:
-				//animation.play("attack");
+				animation.play("attack");
 				this.velocity.x = 0;
 				attack();
+				
 				
 
 		}
@@ -111,7 +117,7 @@ class Player extends FlxSprite
 
 	private function jump():Void
 	{
-		if (FlxG.keys.justPressed.A )
+		if (FlxG.keys.justPressed.Z )
 		{
 			velocity.y = -400;
 
@@ -125,21 +131,34 @@ class Player extends FlxSprite
 
 	public function attack():Void
 	{
-		shoot();
+		if (FlxG.keys.justPressed.X){
+			currentState = States.ATTACK;
+			shoot();
+		}
+			
+		else if (velocity.x == 0)
+						currentState = States.IDLE;
+					else
+						currentState = States.RUN;
+				
+			
+		
+		
 		
 
 	}
 
 	public function getDamage(damage:Int)
 	{
-		if (lives<=0)
-		{	
+		
+		
+			
 			youdie = new FlxText (this.x-30, this.y-5, 0, "Press R to restart, Esc to quit", 7);
 			FlxG.state.add(youdie);
 			this.kill();
 			
 		
-		}
+		
 		
 	}
 
@@ -158,13 +177,13 @@ class Player extends FlxSprite
 
 	private function shoot():Void
 	{
-		if (FlxG.keys.justPressed.S)
-		{
-			var bullet = new Shot(this.x + 5, this.y + 5);
+		
+		
+			var bullet = new Shot(this.x + 5, this.y + 3);
 			bullets.add(bullet);
 			FlxG.state.add(bullets);
 			bullet.velocity.x = Reg.velBullet;
-		}
+		
 	}	
 	public function get_bullets():FlxTypedGroup<Shot>
 	{
