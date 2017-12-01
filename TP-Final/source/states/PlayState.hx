@@ -7,6 +7,7 @@ import entities.Player;
 import entities.Enemy;
 import entities.Enemy1;
 import entities.Enemy2;
+import entities.Guide;
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
@@ -19,6 +20,7 @@ class PlayState extends FlxState
 	private var enemy2:Enemy;
 	private var loader:FlxOgmoLoader;
 	private var tilemap:FlxTilemap;
+	private var guide:Guide;
 	override public function create():Void
 	{
 		FlxG.mouse.visible = false;
@@ -26,12 +28,25 @@ class PlayState extends FlxState
 		loader = new FlxOgmoLoader(AssetPaths.Level__oel);
 		tilemap = loader.loadTilemap(AssetPaths.Tile__png, 16, 16, "Tiles");
 		loader.loadEntities(entityCreator, "Entities");
+		guide = new Guide(player.x, FlxG.height / 2);
+		FlxG.worldBounds.set(0, 0, tilemap.width, tilemap.height);
+		FlxG.camera.follow(guide);
+		FlxG.camera.setScrollBounds(0, tilemap.width,0, tilemap.height);
+		checkTileCollision();
+		
+		
+		add(guide);
 		add(tilemap);
 	}
 
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		guide.getPlayerPos(player.x, player.y);
+		FlxG.collide(tilemap, player);
+		if (FlxG.keys.justPressed.R)
+			FlxG.resetState();
+		
 	}
 	private function entityCreator(entityName:String, entityData:Xml)
 	{
@@ -60,5 +75,10 @@ class PlayState extends FlxState
 				add(enemy2);	
 		}
 	}
-	
+	private function checkTileCollision():Void
+	{
+		tilemap.setTileProperties(0, FlxObject.NONE);
+		tilemap.setTileProperties(1, FlxObject.ANY);
+		
+	}
 }

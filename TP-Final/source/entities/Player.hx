@@ -6,6 +6,7 @@ import flixel.FlxObject;
 import flixel.effects.FlxFlicker;
 import flixel.text.FlxText;
 
+
 /**
  * ...
  * @author Nicolas Piccitto
@@ -25,12 +26,15 @@ class Player extends FlxSprite
 	private var timer:Float;
 	private var youdie:FlxText;
 	
+	
 	public function new(?X:Float = 0, ?Y:Float = 0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 		super(X, Y, SimpleGraphic);
-		makeGraphic(16, 16, 0xffffffff);
+		makeGraphic(10, 10, 0xffffffff);
 		currentState = States.IDLE;
+		acceleration.y = 1500;
 		lives = 1;
+		
 		
 	}
 	
@@ -103,7 +107,7 @@ class Player extends FlxSprite
 
 	private function jump():Void
 	{
-		if (FlxG.keys.justPressed.UP /*&& isTouching(FlxObject.FLOOR)*/)
+		if (FlxG.keys.justPressed.A /*&& isTouching(FlxObject.FLOOR)*/)
 		{
 			velocity.y = -400;
 
