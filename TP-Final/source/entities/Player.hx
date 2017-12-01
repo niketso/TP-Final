@@ -5,6 +5,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.effects.FlxFlicker;
 import flixel.text.FlxText;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 
 /**
@@ -21,10 +22,12 @@ enum States
 }
 class Player extends FlxSprite
 {
+	private var bullets(get, null):FlxTypedGroup<Shot>;
 	public var currentState(get, null):States;
 	private var lives:Int;
 	private var timer:Float;
 	private var youdie:FlxText;
+	
 	
 	
 	public function new(?X:Float = 0, ?Y:Float = 0, ?SimpleGraphic:FlxGraphicAsset)
@@ -34,6 +37,7 @@ class Player extends FlxSprite
 		currentState = States.IDLE;
 		acceleration.y = 1500;
 		lives = 1;
+		bullets = new FlxTypedGroup<Shot>();
 		
 		
 	}
@@ -89,9 +93,9 @@ class Player extends FlxSprite
 
 		}
 	}
-	private function horizontalMovement():Void //esta haciendo conflicto con el objeto deslizante
+	private function horizontalMovement():Void 
 	{
-		velocity.x = 0; //esto hace que no se mueva al parecer
+		velocity.x = 0; 
 
 		if (FlxG.keys.pressed.RIGHT)
 		{
@@ -107,7 +111,7 @@ class Player extends FlxSprite
 
 	private function jump():Void
 	{
-		if (FlxG.keys.justPressed.A /*&& isTouching(FlxObject.FLOOR)*/)
+		if (FlxG.keys.justPressed.A )
 		{
 			velocity.y = -400;
 
@@ -121,7 +125,7 @@ class Player extends FlxSprite
 
 	public function attack():Void
 	{
-
+		shoot();
 		
 
 	}
@@ -152,5 +156,18 @@ class Player extends FlxSprite
 		}
 	}
 
-	
+	private function shoot():Void
+	{
+		if (FlxG.keys.justPressed.S)
+		{
+			var bullet = new Shot(this.x + 5, this.y + 5);
+			bullets.add(bullet);
+			FlxG.state.add(bullets);
+			bullet.velocity.x = Reg.velBullet;
+		}
+	}	
+	public function get_bullets():FlxTypedGroup<Shot>
+	{
+		return bullets;
+	}
 }

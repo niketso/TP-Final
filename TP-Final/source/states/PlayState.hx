@@ -48,7 +48,7 @@ class PlayState extends FlxState
 		guide.getPlayerPos(player.x, player.y);
 		FlxG.collide(tilemap, player);
 		if (FlxG.keys.justPressed.R)
-		{FlxG.resetState();}
+		FlxG.resetState();
 
 		FlxG.collide(enemies1, tilemap);
 		enemies1.forEachAlive(checkEnemyVision);
