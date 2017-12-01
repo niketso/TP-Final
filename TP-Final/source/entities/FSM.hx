@@ -4,10 +4,9 @@ package entities;
  * ...
  * @author ...
  */
-class FSM 
-{
-
-	public var activeState:Void->Void;
+ class FSM
+ {
+     public var activeState:Void->Void;
 
      public function new(?InitState:Void->Void):Void
      {
@@ -19,6 +18,4 @@ class FSM
          if (activeState != null)
              activeState();
      }
-	
-	
-}
+ }
